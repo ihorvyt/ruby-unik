@@ -1,0 +1,15 @@
+<html>
+<head>
+  <title>Hi <%= @stud %>!</title>
+</head>
+<body>
+  <h1>Hello, <%= @stud %>!</h1>
+  <p>Це повідомлення прибуло з app/views/hi/index.html.erb</p>
+  <p><%= @message %></p>
+  <p>Поточний час: <%= @current_time %></p>
+
+  <% 5.times do%>
+    <p><%= @message %></p>
+  <% end %>
+</body>
+</html>
