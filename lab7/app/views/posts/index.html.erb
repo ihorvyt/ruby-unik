@@ -1,0 +1,30 @@
+<h1 class="text-center mb-4">All Posts</h1>
+
+<% @posts.each do |post| %>
+  <div class="card mb-4">
+    <div class="card-body">
+      <h2 class="card-title"><%= post.title %></h2>
+      <p class="card-text"><%= post.content.truncate(100) %></p>
+
+      <% if post.image.attached? %>
+        <div class="mb-3 ">
+          <%= image_tag post.image,  class: "img-fluid", style: "max-width: 400px;" %>
+        </div>
+      <% end %>
+
+      <p class="card-text">
+        <small class="text-muted">By <%= post.user.name %></small>
+      </p>
+
+      <p class="card-text">
+        <%= link_to 'Show', post_path(post), class: "btn btn-primary btn-sm" %>
+        <% if post.persisted? && (post.user == current_user || current_user.admin?) %>
+           <%= link_to 'Edit', edit_post_path(post), class: "btn btn-warning btn-sm" %>
+        <% end %>
+        <% if post.persisted? && (post.user == current_user || current_user.admin?) %>
+          <%= button_to 'Delete', post_path(post), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>
+        <% end %>
+      </p>
+    </div>
+  </div>
+<% end %>

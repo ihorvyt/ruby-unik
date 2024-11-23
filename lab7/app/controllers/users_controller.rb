@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy ]
-
+  
   # GET /users or /users.json
   def index
     @users = User.all
@@ -8,8 +8,11 @@ class UsersController < ApplicationController
 
   # GET /users/1 or /users/1.json
   def show
+    @user = current_user
+    @posts = @user.posts  # Fetch the posts belonging to the current user
   end
 
+  
   # GET /users/new
   def new
     @user = User.new
@@ -55,6 +58,12 @@ class UsersController < ApplicationController
       format.html { redirect_to users_path, status: :see_other, notice: "User was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  # DELETE all users
+  def destroy_all
+    User.delete_all
+    redirect_to users_path, notice: 'All users deleted.'
   end
 
   private
